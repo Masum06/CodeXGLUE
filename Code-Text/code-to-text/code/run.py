@@ -98,7 +98,7 @@ class InputFeatures(object):
         
 
 
-def convert_examples_to_features(examples, tokenizer, args,stage=None):
+def convert_examples_to_features(examples, tokenizer, args,stage=None): # MH: make it encoder_tokenizer, decoder_tokenizer
     features = []
     for example_index, example in enumerate(examples):
         #source
@@ -281,7 +281,7 @@ def main():
     if args.do_train:
         # Prepare training data loader
         train_examples = read_examples(args.train_filename)
-        train_features = convert_examples_to_features(train_examples, tokenizer,args,stage='train')
+        train_features = convert_examples_to_features(train_examples, tokenizer,args,stage='train') # MH: 2 tokenizers
         all_source_ids = torch.tensor([f.source_ids for f in train_features], dtype=torch.long)
         all_source_mask = torch.tensor([f.source_mask for f in train_features], dtype=torch.long)
         all_target_ids = torch.tensor([f.target_ids for f in train_features], dtype=torch.long)
